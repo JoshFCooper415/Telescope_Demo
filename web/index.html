@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmolLM Self-Prediction Calculator</title>
+    <style>
+        body {
+            font-family: monospace;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #debugInfo {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            font-family: monospace;
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 4px;
+        }
+        .results {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SmolLM Self-Prediction Calculator</h1>
+        <p>Measures how well the model predicts its current token rather than the next one</p>
+        <div id="status">Loading model and tokenizer...</div>
+        <textarea id="input" placeholder="Enter text to analyze..." disabled></textarea>
+        <div>
+            <button id="calculate" disabled>Calculate Self-Prediction Score</button>
+            <button id="clearDebug">Clear Debug Log</button>
+        </div>
+        <div id="results" class="results"></div>
+        <div id="debugInfo"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <script>
+        let session;
+        let vocab;
+        let merges;
+        const debugLog = [];
+
+        function log(message, data = null) {
+            const timestamp = new Date().toISOString();
+            const logMessage = `[${timestamp}] ${message}`;
+            debugLog.push(logMessage);
+            if (data) {
+                debugLog.push(JSON.stringify(data, null, 2));
+            }
+            document.getElementById('debugInfo').textContent = debugLog.join('\n');
+            console.log(message, data);
+        }
+
+        async function loadModel() {
+            try {
+                log('Starting model and tokenizer loading...');
+                
+                const [modelSession, vocabResponse, mergesResponse] = await Promise.all([
+                    ort.InferenceSession.create('onnx_model/model.onnx'),
+                    fetch('onnx_model/vocab.json'),
+                    fetch('onnx_model/merges.txt')
+                ]);
+
+                session = modelSession;
+                vocab = await vocabResponse.json();
+                const mergesText = await mergesResponse.text();
+                merges = mergesText.split('\n')
+                    .filter(line => line.trim() && !line.startsWith('#'));
+
+                log('Model loaded successfully');
+                log('Vocab size:', Object.keys(vocab).length);
+                log('Merges count:', merges.length);
+
+                document.getElementById('status').textContent = 'Ready!';
+                document.getElementById('input').disabled = false;
+                document.getElementById('calculate').disabled = false;
+            } catch (error) {
+                log('Error loading model:', error.message);
+                console.error('Loading error:', error);
+            }
+        }
+
+        function encodeText(text) {
+            log('Starting encoding for text:', text);
+            let tokens = [];
+            
+            // Split into words, preserving whitespace
+            let words = text.split(/(\s+)/);
+            
+            for (let word of words) {
+                if (!word) continue;
+                
+                // Handle whitespace tokens
+                if (/^\s+$/.test(word)) {
+                    tokens.push(vocab['Ġ'] || vocab[' ']);
+                    continue;
+                }
+                
+                // Start with characters
+                let token = Array.from(word).join(' ');
+                
+                // Apply merges
+                for (let merge of merges) {
+                    const [first, second] = merge.split(' ');
+                    if (!first || !second) continue;
+                    
+                    const pair = `${first} ${second}`;
+                    const regex = new RegExp(pair.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g');
+                    token = token.replace(regex, first + second);
+                }
+                
+                // Convert to token IDs
+                const wordTokens = token.split(' ').filter(t => t);
+                
+                for (let t of wordTokens) {
+                    if (vocab[t] !== undefined) {
+                        tokens.push(vocab[t]);
+                    } else {
+                        tokens.push(vocab['<unk>'] || 0);
+                    }
+                }
+            }
+            
+            log('Encoded token IDs:', tokens);
+            return tokens;
+        }
+
+        function softmax(logits) {
+            const maxLogit = Math.max(...logits);
+            const expLogits = logits.map(l => Math.exp(l - maxLogit));
+            const sumExp = expLogits.reduce((a, b) => a + b, 0);
+            return expLogits.map(exp => exp / sumExp);
+        }
+
+        function crossEntropyLoss(logits, targetId) {
+            const probs = softmax(logits);
+            return -Math.log(probs[targetId] || 1e-10);
+        }
+
+        function getTokenString(tokenId) {
+            return Object.entries(vocab).find(([_, id]) => id === tokenId)?.[0] || '<unknown>';
+        }
+
+        async function calculateSelfPrediction() {
+            const input = document.getElementById('input').value.trim();
+            const resultsDiv = document.getElementById('results');
+            const calculateBtn = document.getElementById('calculate');
+        
+            if (!input) return;
+        
+            try {
+                calculateBtn.disabled = true;
+                resultsDiv.textContent = 'Calculating...';
+        
+                // Encode sequence
+                const tokens = encodeText(input);
+                if (tokens.length < 1) {
+                    resultsDiv.textContent = 'Text too short to analyze';
+                    return;
+                }
+        
+                // Create input tensors
+                const inputTensor = new ort.Tensor(
+                    'int64',
+                    new BigInt64Array(tokens.map(t => BigInt(t))),
+                    [1, tokens.length]
+                );
+        
+                const attentionMask = new ort.Tensor(
+                    'int64',
+                    new BigInt64Array(tokens.length).fill(1n),
+                    [1, tokens.length]
+                );
+        
+                // Run inference
+                log('Running inference for sequence length:', tokens.length);
+                const results = await session.run({
+                    'input_ids': inputTensor,
+                    'attention_mask': attentionMask
+                });
+        
+                // Get logits sequence
+                const logits = results.logits.data;
+                const vocabSize = Object.keys(vocab).length;
+                const seqLength = tokens.length;
+        
+                // Shift logits and labels
+                const shiftedLogits = Array.from(logits).slice(0, (seqLength - 1) * vocabSize);
+                const shiftedLabels = tokens.slice(1); // Shift labels to the left
+                const shiftedAttentionMask = Array.from(attentionMask.data).slice(0, seqLength - 1);
+        
+                // Apply temperature scaling (assuming temperature = 1.0)
+                const temperature = 1.0;
+                const scaledLogits = shiftedLogits.map(l => l / temperature);
+        
+                // Calculate cross-entropy loss for each position
+                let losses = [];
+                for (let pos = 0; pos < shiftedLabels.length; pos++) {
+                    const posLogits = scaledLogits.slice(pos * vocabSize, (pos + 1) * vocabSize);
+                    const targetId = shiftedLabels[pos];
+                    const loss = crossEntropyLoss(posLogits, targetId);
+                    losses.push(loss);
+                }
+        
+                // Calculate perplexity
+                const median = false; // Set to true if you want median perplexity
+                let perplexity;
+                if (median) {
+                    // Calculate median loss
+                    const sortedLosses = losses.slice().sort((a, b) => a - b);
+                    const mid = Math.floor(sortedLosses.length / 2);
+                    const medianLoss = sortedLosses.length % 2 !== 0 ? sortedLosses[mid] : (sortedLosses[mid - 1] + sortedLosses[mid]) / 2;
+                    perplexity = Math.exp(medianLoss);
+                } else {
+                    // Calculate mean loss
+                    const totalLoss = losses.reduce((a, b) => a + b, 0);
+                    const meanLoss = totalLoss / losses.length;
+                    perplexity = Math.exp(meanLoss);
+                }
+        
+                log('Losses:', losses);
+                log('Self-prediction perplexity:', perplexity);
+        
+                // Display results
+                resultsDiv.innerHTML = `
+                    <strong>Results:</strong><br>
+                    Number of tokens: ${seqLength}<br>
+                    Self-prediction perplexity: ${perplexity.toFixed(4)}<br>
+                `;
+        
+            } catch (error) {
+                log('Calculation error:', error.message);
+                resultsDiv.textContent = 'Error: ' + error.message;
+            } finally {
+                calculateBtn.disabled = false;
+            }
+        }
+        
+
+        document.getElementById('calculate').addEventListener('click', calculateSelfPrediction);
+        document.getElementById('clearDebug').addEventListener('click', () => {
+            debugLog.length = 0;
+            document.getElementById('debugInfo').textContent = '';
+        });
+
+        loadModel();
+    </script>
+</body>
+</html>
