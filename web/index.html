@@ -43,6 +43,11 @@
             padding: 0.5rem 1rem;
             margin: 0.5rem;
             border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
         .results {
             margin: 1rem 0;
@@ -50,6 +55,13 @@
             background: #f8f9fa;
             border: 1px solid #ddd;
             font-size: 1.1em;
+        }
+        #status {
+            padding: 0.5rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
         }
     </style>
 </head>
@@ -68,6 +80,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
     <script>
         let session;
         let vocab;
@@ -85,32 +98,76 @@
             console.log(message, data);
         }
 
+        async function decompressModel(compressedData) {
+            try {
+                log('Starting model decompression...');
+                const decompressed = pako.inflate(compressedData);
+                log('Model decompression successful');
+                return decompressed.buffer;
+            } catch (error) {
+                throw new Error('Failed to decompress model: ' + error.message);
+            }
+        }
+
         async function loadModel() {
             try {
                 log('Starting model and tokenizer loading...');
+                document.getElementById('status').textContent = 'Loading and decompressing model...';
                 
-                const [modelSession, vocabResponse, mergesResponse] = await Promise.all([
-                    ort.InferenceSession.create('onnx_model/model.onnx'),
+                // Load all chunks
+                const chunks = [];
+                let chunkIndex = 0;
+                while (true) {
+                    try {
+                        const response = await fetch(`onnx_model/model.onnx.gz.part${chunkIndex}`);
+                        if (!response.ok) break;
+                        const chunk = await response.arrayBuffer();
+                        chunks.push(new Uint8Array(chunk));
+                        chunkIndex++;
+                    } catch {
+                        break;
+                    }
+                }
+                
+                if (chunks.length === 0) {
+                    throw new Error('No model chunks found');
+                }
+                
+                // Combine chunks
+                const totalLength = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+                const combinedBuffer = new Uint8Array(totalLength);
+                let offset = 0;
+                for (const chunk of chunks) {
+                    combinedBuffer.set(chunk, offset);
+                    offset += chunk.length;
+                }
+                
+                // Decompress combined data
+                const modelData = await decompressModel(combinedBuffer);
+                
+                // Load model and other resources
+                const [vocabResponse, mergesResponse] = await Promise.all([
                     fetch('onnx_model/vocab.json'),
                     fetch('onnx_model/merges.txt')
                 ]);
-
-                session = modelSession;
+                
+                session = await ort.InferenceSession.create(modelData);
                 vocab = await vocabResponse.json();
                 const mergesText = await mergesResponse.text();
                 merges = mergesText.split('\n')
                     .filter(line => line.trim() && !line.startsWith('#'));
-
+        
                 log('Model loaded successfully');
                 log('Vocab size:', Object.keys(vocab).length);
                 log('Merges count:', merges.length);
-
+        
                 document.getElementById('status').textContent = 'Ready!';
                 document.getElementById('input').disabled = false;
                 document.getElementById('calculate').disabled = false;
             } catch (error) {
                 log('Error loading model:', error.message);
                 console.error('Loading error:', error);
+                document.getElementById('status').textContent = 'Error loading model: ' + error.message;
             }
         }
 
@@ -180,7 +237,10 @@
             const resultsDiv = document.getElementById('results');
             const calculateBtn = document.getElementById('calculate');
         
-            if (!input) return;
+            if (!input) {
+                resultsDiv.textContent = 'Please enter some text to analyze';
+                return;
+            }
         
             try {
                 calculateBtn.disabled = true;
@@ -220,37 +280,22 @@
         
                 // Shift logits and labels
                 const shiftedLogits = Array.from(logits).slice(0, (seqLength - 1) * vocabSize);
-                const shiftedLabels = tokens.slice(1); // Shift labels to the left
+                const shiftedLabels = tokens.slice(1);
                 const shiftedAttentionMask = Array.from(attentionMask.data).slice(0, seqLength - 1);
-        
-                // Apply temperature scaling (assuming temperature = 1.0)
-                const temperature = 1.0;
-                const scaledLogits = shiftedLogits.map(l => l / temperature);
         
                 // Calculate cross-entropy loss for each position
                 let losses = [];
                 for (let pos = 0; pos < shiftedLabels.length; pos++) {
-                    const posLogits = scaledLogits.slice(pos * vocabSize, (pos + 1) * vocabSize);
+                    const posLogits = shiftedLogits.slice(pos * vocabSize, (pos + 1) * vocabSize);
                     const targetId = shiftedLabels[pos];
                     const loss = crossEntropyLoss(posLogits, targetId);
                     losses.push(loss);
                 }
         
                 // Calculate perplexity
-                const median = false; // Set to true if you want median perplexity
-                let perplexity;
-                if (median) {
-                    // Calculate median loss
-                    const sortedLosses = losses.slice().sort((a, b) => a - b);
-                    const mid = Math.floor(sortedLosses.length / 2);
-                    const medianLoss = sortedLosses.length % 2 !== 0 ? sortedLosses[mid] : (sortedLosses[mid - 1] + sortedLosses[mid]) / 2;
-                    perplexity = Math.exp(medianLoss);
-                } else {
-                    // Calculate mean loss
-                    const totalLoss = losses.reduce((a, b) => a + b, 0);
-                    const meanLoss = totalLoss / losses.length;
-                    perplexity = Math.exp(meanLoss);
-                }
+                const totalLoss = losses.reduce((a, b) => a + b, 0);
+                const meanLoss = totalLoss / losses.length;
+                const perplexity = Math.exp(meanLoss);
         
                 log('Losses:', losses);
                 log('Self-prediction perplexity:', perplexity);
@@ -260,6 +305,7 @@
                     <strong>Results:</strong><br>
                     Number of tokens: ${seqLength}<br>
                     Self-prediction perplexity: ${perplexity.toFixed(4)}<br>
+                    Average loss: ${meanLoss.toFixed(4)}
                 `;
         
             } catch (error) {
@@ -269,7 +315,6 @@
                 calculateBtn.disabled = false;
             }
         }
-        
 
         document.getElementById('calculate').addEventListener('click', calculateSelfPrediction);
         document.getElementById('clearDebug').addEventListener('click', () => {
@@ -277,6 +322,7 @@
             document.getElementById('debugInfo').textContent = '';
         });
 
+        // Start loading when page loads
         loadModel();
     </script>
 </body>
