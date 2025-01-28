@@ -1,3 +1,2017 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0ae57e7cab31e33d2c96c447d275b4832ef2910ca582a22c3de62469eb860290
-size 52103
+[
+  {
+    "test_case": "The quick brown fox jumps over the lazy",
+    "sequence_length": 8,
+    "inference_time_seconds": 0.009027242660522461,
+    "accuracy": 0.2857142857142857,
+    "average_target_probability": 0.21723127312010806,
+    "token_analysis": [
+      {
+        "position": 0,
+        "target_token": " quick",
+        "target_id": 2365,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 1.3462050446833018e-05,
+        "confidence": 0.12122626602649689,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.12122626602649689
+          },
+          {
+            "token": "\n",
+            "probability": 0.04713796451687813
+          },
+          {
+            "token": ".",
+            "probability": 0.042262256145477295
+          },
+          {
+            "token": ":",
+            "probability": 0.01972990669310093
+          },
+          {
+            "token": "'s",
+            "probability": 0.01016965415328741
+          }
+        ]
+      },
+      {
+        "position": 1,
+        "target_token": " brown",
+        "target_id": 6354,
+        "predicted_token": "est",
+        "predicted_id": 381,
+        "target_probability": 9.842705185292289e-05,
+        "confidence": 0.5569233298301697,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": "est",
+            "probability": 0.5569233298301697
+          },
+          {
+            "token": " answer",
+            "probability": 0.08681151270866394
+          },
+          {
+            "token": " and",
+            "probability": 0.05976850166916847
+          },
+          {
+            "token": " way",
+            "probability": 0.033585075289011
+          },
+          {
+            "token": " response",
+            "probability": 0.00922238640487194
+          }
+        ]
+      },
+      {
+        "position": 2,
+        "target_token": " fox",
+        "target_id": 16438,
+        "predicted_token": " sp",
+        "predicted_id": 574,
+        "target_probability": 0.2390136867761612,
+        "confidence": 0.455535888671875,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " sp",
+            "probability": 0.455535888671875
+          },
+          {
+            "token": " fox",
+            "probability": 0.2390136867761612
+          },
+          {
+            "token": " dog",
+            "probability": 0.048393674194812775
+          },
+          {
+            "token": " dogs",
+            "probability": 0.02030699886381626
+          },
+          {
+            "token": " eyes",
+            "probability": 0.019697578623890877
+          }
+        ]
+      },
+      {
+        "position": 3,
+        "target_token": " jumps",
+        "target_id": 27003,
+        "predicted_token": " jumps",
+        "predicted_id": 27003,
+        "target_probability": 0.19341661036014557,
+        "confidence": 0.19341661036014557,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": " jumps",
+            "probability": 0.19341661036014557
+          },
+          {
+            "token": ",",
+            "probability": 0.08474182337522507
+          },
+          {
+            "token": " came",
+            "probability": 0.06691774725914001
+          },
+          {
+            "token": " and",
+            "probability": 0.04412544146180153
+          },
+          {
+            "token": "'s",
+            "probability": 0.036381401121616364
+          }
+        ]
+      },
+      {
+        "position": 4,
+        "target_token": " over",
+        "target_id": 690,
+        "predicted_token": " in",
+        "predicted_id": 281,
+        "target_probability": 0.1445733606815338,
+        "confidence": 0.1564132273197174,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " in",
+            "probability": 0.1564132273197174
+          },
+          {
+            "token": " over",
+            "probability": 0.1445733606815338
+          },
+          {
+            "token": " through",
+            "probability": 0.08375199884176254
+          },
+          {
+            "token": " into",
+            "probability": 0.07082942873239517
+          },
+          {
+            "token": " across",
+            "probability": 0.0591449998319149
+          }
+        ]
+      },
+      {
+        "position": 5,
+        "target_token": " the",
+        "target_id": 260,
+        "predicted_token": ".",
+        "predicted_id": 30,
+        "target_probability": 0.13161174952983856,
+        "confidence": 0.2036895751953125,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ".",
+            "probability": 0.2036895751953125
+          },
+          {
+            "token": ",",
+            "probability": 0.14867128431797028
+          },
+          {
+            "token": " the",
+            "probability": 0.13161174952983856
+          },
+          {
+            "token": " and",
+            "probability": 0.12798653542995453
+          },
+          {
+            "token": " to",
+            "probability": 0.037543345242738724
+          }
+        ]
+      },
+      {
+        "position": 6,
+        "target_token": " lazy",
+        "target_id": 23790,
+        "predicted_token": " lazy",
+        "predicted_id": 23790,
+        "target_probability": 0.8118916153907776,
+        "confidence": 0.8118916153907776,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": " lazy",
+            "probability": 0.8118916153907776
+          },
+          {
+            "token": " wire",
+            "probability": 0.07111380994319916
+          },
+          {
+            "token": " fence",
+            "probability": 0.03405297175049782
+          },
+          {
+            "token": " roof",
+            "probability": 0.02772243320941925
+          },
+          {
+            "token": " rabbit",
+            "probability": 0.005713694728910923
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "test_case": "1 2 3 4",
+    "sequence_length": 7,
+    "inference_time_seconds": 0.010296344757080078,
+    "accuracy": 0.6666666666666666,
+    "average_target_probability": 0.3100941051573803,
+    "token_analysis": [
+      {
+        "position": 0,
+        "target_token": " ",
+        "target_id": 216,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 0.003913078922778368,
+        "confidence": 0.08419038355350494,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.08419038355350494
+          },
+          {
+            "token": ".",
+            "probability": 0.06383632868528366
+          },
+          {
+            "token": "\n",
+            "probability": 0.054986655712127686
+          },
+          {
+            "token": ":",
+            "probability": 0.029943376779556274
+          },
+          {
+            "token": "-",
+            "probability": 0.022642681375145912
+          }
+        ]
+      },
+      {
+        "position": 1,
+        "target_token": "2",
+        "target_id": 34,
+        "predicted_token": "2",
+        "predicted_id": 34,
+        "target_probability": 0.17102402448654175,
+        "confidence": 0.17102402448654175,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": "2",
+            "probability": 0.17102402448654175
+          },
+          {
+            "token": "1",
+            "probability": 0.16735167801380157
+          },
+          {
+            "token": " #",
+            "probability": 0.1449359506368637
+          },
+          {
+            "token": "3",
+            "probability": 0.08220446109771729
+          },
+          {
+            "token": "5",
+            "probability": 0.08198172599077225
+          }
+        ]
+      },
+      {
+        "position": 2,
+        "target_token": " ",
+        "target_id": 216,
+        "predicted_token": "0",
+        "predicted_id": 32,
+        "target_probability": 0.05086756497621536,
+        "confidence": 0.520366907119751,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": "0",
+            "probability": 0.520366907119751
+          },
+          {
+            "token": "5",
+            "probability": 0.07746212184429169
+          },
+          {
+            "token": "4",
+            "probability": 0.053268853574991226
+          },
+          {
+            "token": " ",
+            "probability": 0.05086756497621536
+          },
+          {
+            "token": "1",
+            "probability": 0.04714617133140564
+          }
+        ]
+      },
+      {
+        "position": 3,
+        "target_token": "3",
+        "target_id": 35,
+        "predicted_token": "3",
+        "predicted_id": 35,
+        "target_probability": 0.3656842112541199,
+        "confidence": 0.3656842112541199,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": "3",
+            "probability": 0.3656842112541199
+          },
+          {
+            "token": "2",
+            "probability": 0.14224311709403992
+          },
+          {
+            "token": "1",
+            "probability": 0.08871430903673172
+          },
+          {
+            "token": "4",
+            "probability": 0.035265155136585236
+          },
+          {
+            "token": "5",
+            "probability": 0.02512167952954769
+          }
+        ]
+      },
+      {
+        "position": 4,
+        "target_token": " ",
+        "target_id": 216,
+        "predicted_token": " ",
+        "predicted_id": 216,
+        "target_probability": 0.5533223152160645,
+        "confidence": 0.5533223152160645,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": " ",
+            "probability": 0.5533223152160645
+          },
+          {
+            "token": ")",
+            "probability": 0.06347960233688354
+          },
+          {
+            "token": "\n",
+            "probability": 0.06161291524767876
+          },
+          {
+            "token": "0",
+            "probability": 0.02307276241481304
+          },
+          {
+            "token": ".",
+            "probability": 0.019500255584716797
+          }
+        ]
+      },
+      {
+        "position": 5,
+        "target_token": "4",
+        "target_id": 36,
+        "predicted_token": "4",
+        "predicted_id": 36,
+        "target_probability": 0.715753436088562,
+        "confidence": 0.715753436088562,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": "4",
+            "probability": 0.715753436088562
+          },
+          {
+            "token": "1",
+            "probability": 0.08189184963703156
+          },
+          {
+            "token": "5",
+            "probability": 0.06414855271577835
+          },
+          {
+            "token": "2",
+            "probability": 0.04903743416070938
+          },
+          {
+            "token": "3",
+            "probability": 0.02408757247030735
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "test_case": "Hello, world!",
+    "sequence_length": 4,
+    "inference_time_seconds": 0.007333040237426758,
+    "accuracy": 0.6666666666666666,
+    "average_target_probability": 0.18441215654214224,
+    "token_analysis": [
+      {
+        "position": 0,
+        "target_token": ",",
+        "target_id": 28,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 0.06301889568567276,
+        "confidence": 0.06301889568567276,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.06301889568567276
+          },
+          {
+            "token": "\n",
+            "probability": 0.046284209936857224
+          },
+          {
+            "token": ".",
+            "probability": 0.040855176746845245
+          },
+          {
+            "token": ":",
+            "probability": 0.014715678058564663
+          },
+          {
+            "token": "_",
+            "probability": 0.014476070180535316
+          }
+        ]
+      },
+      {
+        "position": 1,
+        "target_token": " world",
+        "target_id": 905,
+        "predicted_token": " how",
+        "predicted_id": 638,
+        "target_probability": 0.0038404837250709534,
+        "confidence": 0.08805030584335327,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " how",
+            "probability": 0.08805030584335327
+          },
+          {
+            "token": " hello",
+            "probability": 0.08058061450719833
+          },
+          {
+            "token": " I",
+            "probability": 0.0623745396733284
+          },
+          {
+            "token": " goodbye",
+            "probability": 0.0567094124853611
+          },
+          {
+            "token": " thanks",
+            "probability": 0.03628503158688545
+          }
+        ]
+      },
+      {
+        "position": 2,
+        "target_token": "!",
+        "target_id": 17,
+        "predicted_token": "!",
+        "predicted_id": 17,
+        "target_probability": 0.486377090215683,
+        "confidence": 0.486377090215683,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": "!",
+            "probability": 0.486377090215683
+          },
+          {
+            "token": ".",
+            "probability": 0.14964468777179718
+          },
+          {
+            "token": "!\"",
+            "probability": 0.13296201825141907
+          },
+          {
+            "token": "!\")",
+            "probability": 0.03932824358344078
+          },
+          {
+            "token": ".\"",
+            "probability": 0.03403789550065994
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "test_case": "The end.<|im_end|>New start",
+    "sequence_length": 6,
+    "inference_time_seconds": 0.007307291030883789,
+    "accuracy": 0.0,
+    "average_target_probability": 0.012162890465288002,
+    "token_analysis": [
+      {
+        "position": 0,
+        "target_token": " end",
+        "target_id": 1112,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 1.022201104206033e-05,
+        "confidence": 0.1354953646659851,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.1354953646659851
+          },
+          {
+            "token": ".",
+            "probability": 0.04631643369793892
+          },
+          {
+            "token": "\n",
+            "probability": 0.04415551573038101
+          },
+          {
+            "token": ":",
+            "probability": 0.019289158284664154
+          },
+          {
+            "token": "-",
+            "probability": 0.00903805997222662
+          }
+        ]
+      },
+      {
+        "position": 1,
+        "target_token": ".",
+        "target_id": 30,
+        "predicted_token": " of",
+        "predicted_id": 282,
+        "target_probability": 0.05746850743889809,
+        "confidence": 0.36224880814552307,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " of",
+            "probability": 0.36224880814552307
+          },
+          {
+            "token": " result",
+            "probability": 0.12109722942113876
+          },
+          {
+            "token": ".",
+            "probability": 0.05746850743889809
+          },
+          {
+            "token": " point",
+            "probability": 0.04411759227514267
+          },
+          {
+            "token": " points",
+            "probability": 0.04009691998362541
+          }
+        ]
+      },
+      {
+        "position": 2,
+        "target_token": "<|im_end|>",
+        "target_id": 2,
+        "predicted_token": "\n",
+        "predicted_id": 198,
+        "target_probability": 0.002558819018304348,
+        "confidence": 0.26520591974258423,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": "\n",
+            "probability": 0.26520591974258423
+          },
+          {
+            "token": " The",
+            "probability": 0.14341551065444946
+          },
+          {
+            "token": " I",
+            "probability": 0.105295829474926
+          },
+          {
+            "token": " It",
+            "probability": 0.019095661118626595
+          },
+          {
+            "token": " \"",
+            "probability": 0.01757791079580784
+          }
+        ]
+      },
+      {
+        "position": 3,
+        "target_token": "New",
+        "target_id": 5529,
+        "predicted_token": "\n",
+        "predicted_id": 198,
+        "target_probability": 1.5168714071478462e-06,
+        "confidence": 0.9952746033668518,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": "\n",
+            "probability": 0.9952746033668518
+          },
+          {
+            "token": "\n   ",
+            "probability": 0.0004658171092160046
+          },
+          {
+            "token": "\n ",
+            "probability": 0.00035307215875945985
+          },
+          {
+            "token": " ",
+            "probability": 0.00020413956372067332
+          },
+          {
+            "token": "\ufffd",
+            "probability": 0.00013752809900324792
+          }
+        ]
+      },
+      {
+        "position": 4,
+        "target_token": " start",
+        "target_id": 1120,
+        "predicted_token": " York",
+        "predicted_id": 2863,
+        "target_probability": 0.0007753869867883623,
+        "confidence": 0.16092842817306519,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " York",
+            "probability": 0.16092842817306519
+          },
+          {
+            "token": "\n",
+            "probability": 0.15588319301605225
+          },
+          {
+            "token": "est",
+            "probability": 0.08322980999946594
+          },
+          {
+            "token": "sp",
+            "probability": 0.07397672533988953
+          },
+          {
+            "token": "line",
+            "probability": 0.05311616137623787
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "test_case": "a b a b a b a",
+    "sequence_length": 7,
+    "inference_time_seconds": 0.008014440536499023,
+    "accuracy": 0.16666666666666666,
+    "average_target_probability": 0.13241945954541734,
+    "token_analysis": [
+      {
+        "position": 0,
+        "target_token": " b",
+        "target_id": 278,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 4.9781894631450996e-05,
+        "confidence": 0.1533064991235733,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.1533064991235733
+          },
+          {
+            "token": ".",
+            "probability": 0.10780536383390427
+          },
+          {
+            "token": "\n",
+            "probability": 0.04161772131919861
+          },
+          {
+            "token": ":",
+            "probability": 0.027547039091587067
+          },
+          {
+            "token": "-",
+            "probability": 0.02174362912774086
+          }
+        ]
+      },
+      {
+        "position": 1,
+        "target_token": " a",
+        "target_id": 253,
+        "predicted_token": "ord",
+        "predicted_id": 589,
+        "target_probability": 0.0007484287489205599,
+        "confidence": 0.0681457445025444,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": "ord",
+            "probability": 0.0681457445025444
+          },
+          {
+            "token": "anged",
+            "probability": 0.041533127427101135
+          },
+          {
+            "token": "oun",
+            "probability": 0.03171870857477188
+          },
+          {
+            "token": "achel",
+            "probability": 0.028570467606186867
+          },
+          {
+            "token": "ungal",
+            "probability": 0.025734703987836838
+          }
+        ]
+      },
+      {
+        "position": 2,
+        "target_token": " b",
+        "target_id": 278,
+        "predicted_token": " b",
+        "predicted_id": 278,
+        "target_probability": 0.29993027448654175,
+        "confidence": 0.29993027448654175,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": " b",
+            "probability": 0.29993027448654175
+          },
+          {
+            "token": " c",
+            "probability": 0.02709338068962097
+          },
+          {
+            "token": ",",
+            "probability": 0.014873767271637917
+          },
+          {
+            "token": " d",
+            "probability": 0.013847106136381626
+          },
+          {
+            "token": " la",
+            "probability": 0.013323960825800896
+          }
+        ]
+      },
+      {
+        "position": 3,
+        "target_token": " a",
+        "target_id": 253,
+        "predicted_token": " c",
+        "predicted_id": 265,
+        "target_probability": 0.12103131413459778,
+        "confidence": 0.21213579177856445,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " c",
+            "probability": 0.21213579177856445
+          },
+          {
+            "token": " a",
+            "probability": 0.12103131413459778
+          },
+          {
+            "token": " b",
+            "probability": 0.09294106066226959
+          },
+          {
+            "token": ",",
+            "probability": 0.045455753803253174
+          },
+          {
+            "token": " d",
+            "probability": 0.027101123705506325
+          }
+        ]
+      },
+      {
+        "position": 4,
+        "target_token": " b",
+        "target_id": 278,
+        "predicted_token": " c",
+        "predicted_id": 265,
+        "target_probability": 0.28892287611961365,
+        "confidence": 0.38461801409721375,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " c",
+            "probability": 0.38461801409721375
+          },
+          {
+            "token": " b",
+            "probability": 0.28892287611961365
+          },
+          {
+            "token": " a",
+            "probability": 0.024164263159036636
+          },
+          {
+            "token": " d",
+            "probability": 0.0118182934820652
+          },
+          {
+            "token": "**",
+            "probability": 0.009694761596620083
+          }
+        ]
+      },
+      {
+        "position": 5,
+        "target_token": " a",
+        "target_id": 253,
+        "predicted_token": " c",
+        "predicted_id": 265,
+        "target_probability": 0.08383408188819885,
+        "confidence": 0.243758425116539,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " c",
+            "probability": 0.243758425116539
+          },
+          {
+            "token": " b",
+            "probability": 0.11471367627382278
+          },
+          {
+            "token": " a",
+            "probability": 0.08383408188819885
+          },
+          {
+            "token": "\n",
+            "probability": 0.0533938929438591
+          },
+          {
+            "token": ",",
+            "probability": 0.050814446061849594
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "test_case": "Testing 123, testing 456.",
+    "sequence_length": 12,
+    "inference_time_seconds": 0.010041952133178711,
+    "accuracy": 0.2727272727272727,
+    "average_target_probability": 0.14639174146048556,
+    "token_analysis": [
+      {
+        "position": 0,
+        "target_token": " ",
+        "target_id": 216,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 0.004595321137458086,
+        "confidence": 0.07891165465116501,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.07891165465116501
+          },
+          {
+            "token": "\n",
+            "probability": 0.037922970950603485
+          },
+          {
+            "token": ".",
+            "probability": 0.03741415962576866
+          },
+          {
+            "token": ":",
+            "probability": 0.017560280859470367
+          },
+          {
+            "token": "_",
+            "probability": 0.015814978629350662
+          }
+        ]
+      },
+      {
+        "position": 1,
+        "target_token": "1",
+        "target_id": 33,
+        "predicted_token": "1",
+        "predicted_id": 33,
+        "target_probability": 0.30469465255737305,
+        "confidence": 0.30469465255737305,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": "1",
+            "probability": 0.30469465255737305
+          },
+          {
+            "token": "2",
+            "probability": 0.2965738773345947
+          },
+          {
+            "token": "3",
+            "probability": 0.1653565615415573
+          },
+          {
+            "token": "5",
+            "probability": 0.0623149573802948
+          },
+          {
+            "token": "0",
+            "probability": 0.03897117078304291
+          }
+        ]
+      },
+      {
+        "position": 2,
+        "target_token": "2",
+        "target_id": 34,
+        "predicted_token": ".",
+        "predicted_id": 30,
+        "target_probability": 0.06992773711681366,
+        "confidence": 0.26541945338249207,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ".",
+            "probability": 0.26541945338249207
+          },
+          {
+            "token": "0",
+            "probability": 0.1806120127439499
+          },
+          {
+            "token": ":",
+            "probability": 0.07087871432304382
+          },
+          {
+            "token": "2",
+            "probability": 0.06992773711681366
+          },
+          {
+            "token": "9",
+            "probability": 0.056336659938097
+          }
+        ]
+      },
+      {
+        "position": 3,
+        "target_token": "3",
+        "target_id": 35,
+        "predicted_token": ":",
+        "predicted_id": 42,
+        "target_probability": 0.01584864780306816,
+        "confidence": 0.26941248774528503,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ":",
+            "probability": 0.26941248774528503
+          },
+          {
+            "token": "-",
+            "probability": 0.06159433722496033
+          },
+          {
+            "token": " (",
+            "probability": 0.05875018611550331
+          },
+          {
+            "token": "th",
+            "probability": 0.044993769377470016
+          },
+          {
+            "token": "0",
+            "probability": 0.037367407232522964
+          }
+        ]
+      },
+      {
+        "position": 4,
+        "target_token": ",",
+        "target_id": 28,
+        "predicted_token": ":",
+        "predicted_id": 42,
+        "target_probability": 0.014203562401235104,
+        "confidence": 0.32390081882476807,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ":",
+            "probability": 0.32390081882476807
+          },
+          {
+            "token": "4",
+            "probability": 0.17637410759925842
+          },
+          {
+            "token": " (",
+            "probability": 0.10700087994337082
+          },
+          {
+            "token": ".",
+            "probability": 0.028962556272745132
+          },
+          {
+            "token": " is",
+            "probability": 0.02573404833674431
+          }
+        ]
+      },
+      {
+        "position": 5,
+        "target_token": " testing",
+        "target_id": 3728,
+        "predicted_token": " ",
+        "predicted_id": 216,
+        "target_probability": 0.0003561199991963804,
+        "confidence": 0.0749192163348198,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " ",
+            "probability": 0.0749192163348198
+          },
+          {
+            "token": " the",
+            "probability": 0.06243095546960831
+          },
+          {
+            "token": " which",
+            "probability": 0.0356413908302784
+          },
+          {
+            "token": " with",
+            "probability": 0.030824322253465652
+          },
+          {
+            "token": " and",
+            "probability": 0.030824322253465652
+          }
+        ]
+      },
+      {
+        "position": 6,
+        "target_token": " ",
+        "target_id": 216,
+        "predicted_token": " ",
+        "predicted_id": 216,
+        "target_probability": 0.1678815484046936,
+        "confidence": 0.1678815484046936,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": " ",
+            "probability": 0.1678815484046936
+          },
+          {
+            "token": " for",
+            "probability": 0.08487158268690109
+          },
+          {
+            "token": ",",
+            "probability": 0.052898868918418884
+          },
+          {
+            "token": "_",
+            "probability": 0.03274901211261749
+          },
+          {
+            "token": " day",
+            "probability": 0.0247443076223135
+          }
+        ]
+      },
+      {
+        "position": 7,
+        "target_token": "4",
+        "target_id": 36,
+        "predicted_token": "1",
+        "predicted_id": 33,
+        "target_probability": 0.015345141291618347,
+        "confidence": 0.8797321915626526,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": "1",
+            "probability": 0.8797321915626526
+          },
+          {
+            "token": "2",
+            "probability": 0.0341617688536644
+          },
+          {
+            "token": "3",
+            "probability": 0.02332502417266369
+          },
+          {
+            "token": "5",
+            "probability": 0.016809986904263496
+          },
+          {
+            "token": "4",
+            "probability": 0.015345141291618347
+          }
+        ]
+      },
+      {
+        "position": 8,
+        "target_token": "5",
+        "target_id": 37,
+        "predicted_token": "4",
+        "predicted_id": 36,
+        "target_probability": 0.17105011641979218,
+        "confidence": 0.2152027189731598,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": "4",
+            "probability": 0.2152027189731598
+          },
+          {
+            "token": ".",
+            "probability": 0.20805715024471283
+          },
+          {
+            "token": "5",
+            "probability": 0.17105011641979218
+          },
+          {
+            "token": "3",
+            "probability": 0.13413208723068237
+          },
+          {
+            "token": ",",
+            "probability": 0.06211002916097641
+          }
+        ]
+      },
+      {
+        "position": 9,
+        "target_token": "6",
+        "target_id": 38,
+        "predicted_token": "6",
+        "predicted_id": 38,
+        "target_probability": 0.8419257998466492,
+        "confidence": 0.8419257998466492,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": "6",
+            "probability": 0.8419257998466492
+          },
+          {
+            "token": ",",
+            "probability": 0.025378946214914322
+          },
+          {
+            "token": "):",
+            "probability": 0.014835219830274582
+          },
+          {
+            "token": ")",
+            "probability": 0.01391327753663063
+          },
+          {
+            "token": "0",
+            "probability": 0.004884304478764534
+          }
+        ]
+      },
+      {
+        "position": 10,
+        "target_token": ".",
+        "target_id": 30,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 0.004480509087443352,
+        "confidence": 0.7828243970870972,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.7828243970870972
+          },
+          {
+            "token": " and",
+            "probability": 0.04512733221054077
+          },
+          {
+            "token": ")",
+            "probability": 0.03863481432199478
+          },
+          {
+            "token": "]",
+            "probability": 0.011690274812281132
+          },
+          {
+            "token": " (",
+            "probability": 0.009708784520626068
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "test_case": "This is a much longer sequence that will test the model's ability to handle extended context and maintain coherence over many tokens.",
+    "sequence_length": 24,
+    "inference_time_seconds": 0.012750387191772461,
+    "accuracy": 0.13043478260869565,
+    "average_target_probability": 0.12934401547776678,
+    "token_analysis": [
+      {
+        "position": 0,
+        "target_token": " is",
+        "target_id": 314,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 0.0004078022320754826,
+        "confidence": 0.1519494354724884,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.1519494354724884
+          },
+          {
+            "token": ".",
+            "probability": 0.05738929286599159
+          },
+          {
+            "token": "\n",
+            "probability": 0.045364219695329666
+          },
+          {
+            "token": ":",
+            "probability": 0.028775693848729134
+          },
+          {
+            "token": "-",
+            "probability": 0.020468560978770256
+          }
+        ]
+      },
+      {
+        "position": 1,
+        "target_token": " a",
+        "target_id": 253,
+        "predicted_token": " just",
+        "predicted_id": 915,
+        "target_probability": 0.17100292444229126,
+        "confidence": 0.33392101526260376,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " just",
+            "probability": 0.33392101526260376
+          },
+          {
+            "token": " a",
+            "probability": 0.17100292444229126
+          },
+          {
+            "token": " the",
+            "probability": 0.10181763023138046
+          },
+          {
+            "token": " not",
+            "probability": 0.06497605890035629
+          },
+          {
+            "token": " where",
+            "probability": 0.03502432256937027
+          }
+        ]
+      },
+      {
+        "position": 2,
+        "target_token": " much",
+        "target_id": 1083,
+        "predicted_token": " great",
+        "predicted_id": 1109,
+        "target_probability": 0.0005469897296279669,
+        "confidence": 0.07491648197174072,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " great",
+            "probability": 0.07491648197174072
+          },
+          {
+            "token": " good",
+            "probability": 0.04001898691058159
+          },
+          {
+            "token": " very",
+            "probability": 0.02418973483145237
+          },
+          {
+            "token": " game",
+            "probability": 0.014754489995539188
+          },
+          {
+            "token": " perfect",
+            "probability": 0.01453376654535532
+          }
+        ]
+      },
+      {
+        "position": 3,
+        "target_token": " longer",
+        "target_id": 2848,
+        "predicted_token": " more",
+        "predicted_id": 540,
+        "target_probability": 0.03583108261227608,
+        "confidence": 0.4480857253074646,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " more",
+            "probability": 0.4480857253074646
+          },
+          {
+            "token": " better",
+            "probability": 0.06850704550743103
+          },
+          {
+            "token": " larger",
+            "probability": 0.05067769065499306
+          },
+          {
+            "token": " simpler",
+            "probability": 0.049470141530036926
+          },
+          {
+            "token": " harder",
+            "probability": 0.04191187396645546
+          }
+        ]
+      },
+      {
+        "position": 4,
+        "target_token": " sequence",
+        "target_id": 5972,
+        "predicted_token": " and",
+        "predicted_id": 284,
+        "target_probability": 0.00021411805937532336,
+        "confidence": 0.27375462651252747,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " and",
+            "probability": 0.27375462651252747
+          },
+          {
+            "token": "-",
+            "probability": 0.11594242602586746
+          },
+          {
+            "token": " story",
+            "probability": 0.06325504183769226
+          },
+          {
+            "token": " one",
+            "probability": 0.06249688193202019
+          },
+          {
+            "token": ",",
+            "probability": 0.061747804284095764
+          }
+        ]
+      },
+      {
+        "position": 5,
+        "target_token": " that",
+        "target_id": 338,
+        "predicted_token": " of",
+        "predicted_id": 282,
+        "target_probability": 0.008012493140995502,
+        "confidence": 0.440231591463089,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " of",
+            "probability": 0.440231591463089
+          },
+          {
+            "token": ",",
+            "probability": 0.2394556999206543
+          },
+          {
+            "token": " than",
+            "probability": 0.16778001189231873
+          },
+          {
+            "token": ".",
+            "probability": 0.036171168088912964
+          },
+          {
+            "token": " in",
+            "probability": 0.015319458208978176
+          }
+        ]
+      },
+      {
+        "position": 6,
+        "target_token": " will",
+        "target_id": 523,
+        "predicted_token": " covers",
+        "predicted_id": 7725,
+        "target_probability": 0.029315650463104248,
+        "confidence": 0.15294510126113892,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " covers",
+            "probability": 0.15294510126113892
+          },
+          {
+            "token": " spans",
+            "probability": 0.1488514542579651
+          },
+          {
+            "token": " takes",
+            "probability": 0.1453046351671219
+          },
+          {
+            "token": " includes",
+            "probability": 0.03523384779691696
+          },
+          {
+            "token": " can",
+            "probability": 0.03408467397093773
+          }
+        ]
+      },
+      {
+        "position": 7,
+        "target_token": " test",
+        "target_id": 1028,
+        "predicted_token": " take",
+        "predicted_id": 1188,
+        "target_probability": 0.0011955733643844724,
+        "confidence": 0.2519930601119995,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " take",
+            "probability": 0.2519930601119995
+          },
+          {
+            "token": " be",
+            "probability": 0.07753465324640274
+          },
+          {
+            "token": " cover",
+            "probability": 0.048592694103717804
+          },
+          {
+            "token": " eventually",
+            "probability": 0.043202873319387436
+          },
+          {
+            "token": " go",
+            "probability": 0.034773699939250946
+          }
+        ]
+      },
+      {
+        "position": 8,
+        "target_token": " the",
+        "target_id": 260,
+        "predicted_token": " your",
+        "predicted_id": 469,
+        "target_probability": 0.12994906306266785,
+        "confidence": 0.6287526488304138,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " your",
+            "probability": 0.6287526488304138
+          },
+          {
+            "token": " the",
+            "probability": 0.12994906306266785
+          },
+          {
+            "token": " you",
+            "probability": 0.018259575590491295
+          },
+          {
+            "token": " more",
+            "probability": 0.01739976555109024
+          },
+          {
+            "token": " our",
+            "probability": 0.016832260414958
+          }
+        ]
+      },
+      {
+        "position": 9,
+        "target_token": " model",
+        "target_id": 1743,
+        "predicted_token": " ability",
+        "predicted_id": 2470,
+        "target_probability": 0.0016416895668953657,
+        "confidence": 0.12193368375301361,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " ability",
+            "probability": 0.12193368375301361
+          },
+          {
+            "token": " skills",
+            "probability": 0.029477812349796295
+          },
+          {
+            "token": " entire",
+            "probability": 0.01986054703593254
+          },
+          {
+            "token": " following",
+            "probability": 0.019154945388436317
+          },
+          {
+            "token": " accuracy",
+            "probability": 0.017979927361011505
+          }
+        ]
+      },
+      {
+        "position": 10,
+        "target_token": "'s",
+        "target_id": 506,
+        "predicted_token": "'s",
+        "predicted_id": 506,
+        "target_probability": 0.24591004848480225,
+        "confidence": 0.24591004848480225,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": "'s",
+            "probability": 0.24591004848480225
+          },
+          {
+            "token": " with",
+            "probability": 0.16418927907943726
+          },
+          {
+            "token": " for",
+            "probability": 0.135380819439888
+          },
+          {
+            "token": " on",
+            "probability": 0.11196373403072357
+          },
+          {
+            "token": " in",
+            "probability": 0.05253773182630539
+          }
+        ]
+      },
+      {
+        "position": 11,
+        "target_token": " ability",
+        "target_id": 2470,
+        "predicted_token": " performance",
+        "predicted_id": 2851,
+        "target_probability": 0.174770325422287,
+        "confidence": 0.23272384703159332,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " performance",
+            "probability": 0.23272384703159332
+          },
+          {
+            "token": " ability",
+            "probability": 0.174770325422287
+          },
+          {
+            "token": " accuracy",
+            "probability": 0.11186836659908295
+          },
+          {
+            "token": " robustness",
+            "probability": 0.062333930283784866
+          },
+          {
+            "token": " capabilities",
+            "probability": 0.022843582555651665
+          }
+        ]
+      },
+      {
+        "position": 12,
+        "target_token": " to",
+        "target_id": 288,
+        "predicted_token": " to",
+        "predicted_id": 288,
+        "target_probability": 0.9723351001739502,
+        "confidence": 0.9723351001739502,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": " to",
+            "probability": 0.9723351001739502
+          },
+          {
+            "token": " in",
+            "probability": 0.00861004926264286
+          },
+          {
+            "token": ",",
+            "probability": 0.003713137237355113
+          },
+          {
+            "token": " for",
+            "probability": 0.0031081282068043947
+          },
+          {
+            "token": " at",
+            "probability": 0.003070874372497201
+          }
+        ]
+      },
+      {
+        "position": 13,
+        "target_token": " handle",
+        "target_id": 5605,
+        "predicted_token": " predict",
+        "predicted_id": 3142,
+        "target_probability": 0.06164565309882164,
+        "confidence": 0.21025314927101135,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " predict",
+            "probability": 0.21025314927101135
+          },
+          {
+            "token": " recognize",
+            "probability": 0.08434482663869858
+          },
+          {
+            "token": " detect",
+            "probability": 0.07210750132799149
+          },
+          {
+            "token": " learn",
+            "probability": 0.06296025216579437
+          },
+          {
+            "token": " handle",
+            "probability": 0.06164565309882164
+          }
+        ]
+      },
+      {
+        "position": 14,
+        "target_token": " extended",
+        "target_id": 6470,
+        "predicted_token": " complex",
+        "predicted_id": 1784,
+        "target_probability": 6.967424997128546e-05,
+        "confidence": 0.2636871039867401,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " complex",
+            "probability": 0.2636871039867401
+          },
+          {
+            "token": " multiple",
+            "probability": 0.07434111833572388
+          },
+          {
+            "token": " different",
+            "probability": 0.048307523131370544
+          },
+          {
+            "token": " more",
+            "probability": 0.04192594066262245
+          },
+          {
+            "token": " all",
+            "probability": 0.035413455218076706
+          }
+        ]
+      },
+      {
+        "position": 15,
+        "target_token": " context",
+        "target_id": 2468,
+        "predicted_token": " periods",
+        "predicted_id": 5324,
+        "target_probability": 0.003025759244337678,
+        "confidence": 0.17657610774040222,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " periods",
+            "probability": 0.17657610774040222
+          },
+          {
+            "token": " inputs",
+            "probability": 0.0946083515882492
+          },
+          {
+            "token": " sequences",
+            "probability": 0.08360894024372101
+          },
+          {
+            "token": " input",
+            "probability": 0.0594722256064415
+          },
+          {
+            "token": " ranges",
+            "probability": 0.03946974128484726
+          }
+        ]
+      },
+      {
+        "position": 16,
+        "target_token": " and",
+        "target_id": 284,
+        "predicted_token": ",",
+        "predicted_id": 28,
+        "target_probability": 0.13915829360485077,
+        "confidence": 0.47749459743499756,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": ",",
+            "probability": 0.47749459743499756
+          },
+          {
+            "token": ".",
+            "probability": 0.16524668037891388
+          },
+          {
+            "token": " and",
+            "probability": 0.13915829360485077
+          },
+          {
+            "token": " of",
+            "probability": 0.08487937599420547
+          },
+          {
+            "token": " in",
+            "probability": 0.015596876852214336
+          }
+        ]
+      },
+      {
+        "position": 17,
+        "target_token": " maintain",
+        "target_id": 2125,
+        "predicted_token": " handle",
+        "predicted_id": 5605,
+        "target_probability": 0.0021703513339161873,
+        "confidence": 0.09036453068256378,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " handle",
+            "probability": 0.09036453068256378
+          },
+          {
+            "token": " multiple",
+            "probability": 0.08768117427825928
+          },
+          {
+            "token": " subtle",
+            "probability": 0.02524704858660698
+          },
+          {
+            "token": " nuanced",
+            "probability": 0.024350086227059364
+          },
+          {
+            "token": " complex",
+            "probability": 0.023626990616321564
+          }
+        ]
+      },
+      {
+        "position": 18,
+        "target_token": " coherence",
+        "target_id": 28933,
+        "predicted_token": " human",
+        "predicted_id": 1205,
+        "target_probability": 0.006477675400674343,
+        "confidence": 0.10125129669904709,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " human",
+            "probability": 0.10125129669904709
+          },
+          {
+            "token": " a",
+            "probability": 0.09765401482582092
+          },
+          {
+            "token": " its",
+            "probability": 0.06345650553703308
+          },
+          {
+            "token": " consistency",
+            "probability": 0.05849623307585716
+          },
+          {
+            "token": " the",
+            "probability": 0.051695309579372406
+          }
+        ]
+      },
+      {
+        "position": 19,
+        "target_token": " over",
+        "target_id": 690,
+        "predicted_token": " across",
+        "predicted_id": 1699,
+        "target_probability": 0.13097476959228516,
+        "confidence": 0.2643800973892212,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " across",
+            "probability": 0.2643800973892212
+          },
+          {
+            "token": " over",
+            "probability": 0.13097476959228516
+          },
+          {
+            "token": " throughout",
+            "probability": 0.12594111263751984
+          },
+          {
+            "token": ".",
+            "probability": 0.10573896765708923
+          },
+          {
+            "token": " in",
+            "probability": 0.06468997150659561
+          }
+        ]
+      },
+      {
+        "position": 20,
+        "target_token": " many",
+        "target_id": 800,
+        "predicted_token": " time",
+        "predicted_id": 655,
+        "target_probability": 0.012331407517194748,
+        "confidence": 0.7174657583236694,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " time",
+            "probability": 0.7174657583236694
+          },
+          {
+            "token": " multiple",
+            "probability": 0.10327424108982086
+          },
+          {
+            "token": " a",
+            "probability": 0.04231278598308563
+          },
+          {
+            "token": " the",
+            "probability": 0.03274843096733093
+          },
+          {
+            "token": " several",
+            "probability": 0.01733609102666378
+          }
+        ]
+      },
+      {
+        "position": 21,
+        "target_token": " tokens",
+        "target_id": 17837,
+        "predicted_token": " possible",
+        "predicted_id": 1636,
+        "target_probability": 0.0014687278307974339,
+        "confidence": 0.11977294832468033,
+        "correct": false,
+        "top_5_predictions": [
+          {
+            "token": " possible",
+            "probability": 0.11977294832468033
+          },
+          {
+            "token": " more",
+            "probability": 0.0449647419154644
+          },
+          {
+            "token": " different",
+            "probability": 0.04429207742214203
+          },
+          {
+            "token": " iterations",
+            "probability": 0.040953125804662704
+          },
+          {
+            "token": " lines",
+            "probability": 0.03336276859045029
+          }
+        ]
+      },
+      {
+        "position": 22,
+        "target_token": ".",
+        "target_id": 30,
+        "predicted_token": ".",
+        "predicted_id": 30,
+        "target_probability": 0.8464571833610535,
+        "confidence": 0.8464571833610535,
+        "correct": true,
+        "top_5_predictions": [
+          {
+            "token": ".",
+            "probability": 0.8464571833610535
+          },
+          {
+            "token": ",",
+            "probability": 0.04785715416073799
+          },
+          {
+            "token": " in",
+            "probability": 0.023353897035121918
+          },
+          {
+            "token": " and",
+            "probability": 0.015734607353806496
+          },
+          {
+            "token": ".\"",
+            "probability": 0.012626555748283863
+          }
+        ]
+      }
+    ]
+  }
+]
