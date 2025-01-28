@@ -117,7 +117,7 @@
                 // Load all chunks
                 const chunks = [];
                 let chunkIndex = 0;
-                while (true) {
+                while (chunkIndex < 11) {
                     try {
                         const response = await fetch(`onnx_model/model.onnx.gz.part${chunkIndex}`);
                         if (!response.ok) break;
