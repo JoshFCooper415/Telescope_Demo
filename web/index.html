@@ -3,80 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmolLM Self-Prediction Calculator</title>
+    <title>Project Telescope - LLM Detection Tool</title>
     <style>
-        body {
-            font-family: monospace;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: #f5f5f5;
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #6b7280;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
         }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f9fafb;
+            color: #1f2937;
+        }
+        
         .container {
             background: white;
             padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
         }
-        #debugInfo {
-            background: #1e1e1e;
-            color: #00ff00;
+        
+        .title-section h1 {
+            margin: 0;
+            font-size: 1.875rem;
+            color: #111827;
+        }
+        
+        .title-section p {
+            margin: 0.5rem 0 0;
+            color: var(--secondary);
+        }
+        
+        .disclaimer {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
             padding: 1rem;
-            border-radius: 4px;
-            margin-top: 1rem;
-            font-family: monospace;
-            white-space: pre-wrap;
-            max-height: 400px;
-            overflow-y: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.875rem;
+            line-height: 1.5;
         }
+        
         textarea {
             width: 100%;
-            min-height: 100px;
+            min-height: 120px;
             margin: 1rem 0;
-            padding: 0.5rem;
-            font-family: monospace;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
         }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .loading-bar div {
+            width: 0%;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
         button {
-            background: #0070f3;
-            color: white;
-            border: none;
             padding: 0.5rem 1rem;
-            margin: 0.5rem;
-            border-radius: 4px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
             cursor: pointer;
+            transition: all 0.2s;
         }
+        
+        .primary-button {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .primary-button:hover {
+            background: var(--primary-dark);
+        }
+        
         button:disabled {
-            background: #ccc;
+            opacity: 0.5;
             cursor: not-allowed;
         }
+        
         .results {
             margin: 1rem 0;
-            padding: 1rem;
-            background: #f8f9fa;
-            border: 1px solid #ddd;
-            font-size: 1.1em;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
         }
-        #status {
-            padding: 0.5rem;
-            margin: 1rem 0;
-            border-radius: 4px;
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
+        
+        .spinner {
+            display: none;
+            width: 30px;
+            height: 30px;
+            margin: 20px auto;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>SmolLM Self-Prediction Calculator</h1>
-        <p>Measures how well the model predicts its current token rather than the next one</p>
-        <div id="status">Loading model and tokenizer...</div>
-        <textarea id="input" placeholder="Enter text to analyze..." disabled></textarea>
-        <div>
-            <button id="calculate" disabled>Calculate Self-Prediction Score</button>
-            <button id="clearDebug">Clear Debug Log</button>
+        <div class="header">
+            <div class="logo">🔭</div>
+            <div class="title-section">
+                <h1>Project Telescope</h1>
+                <p>Language Model Detection Tool</p>
+            </div>
         </div>
-        <div id="results" class="results"></div>
-        <div id="debugInfo"></div>
+
+        <div class="disclaimer">
+            <strong>Important Notice:</strong> This tool analyzes text patterns that may indicate AI-generated content. 
+            However, it should not be considered definitive proof of AI authorship. Many factors can influence the results, 
+            and no single tool can perfectly determine the origin of text. Use this as one of many signals in your evaluation process.
+        </div>
+
+        <div id="status" class="loading-bar">
+            <div></div>
+        </div>
+
+        <textarea id="input" placeholder="Enter text to analyze (minimum 100 characters recommended for accurate results)..." disabled></textarea>
+
+        <div class="controls">
+            <button id="calculate" class="primary-button" disabled>Analyze Text</button>
+        </div>
+
+        <div class="spinner" id="spinner"></div>
+        <div id="results" class="results">
+            Enter text above to begin analysis
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
@@ -85,40 +196,29 @@
         let session;
         let vocab;
         let merges;
-        const debugLog = [];
+        const loadingBar = document.querySelector('.loading-bar div');
 
-        function log(message, data = null) {
-            const timestamp = new Date().toISOString();
-            const logMessage = `[${timestamp}] ${message}`;
-            debugLog.push(logMessage);
-            if (data) {
-                debugLog.push(JSON.stringify(data, null, 2));
-            }
-            document.getElementById('debugInfo').textContent = debugLog.join('\n');
-            console.log(message, data);
+        function updateLoadingProgress(progress) {
+            document.querySelector('.loading-bar').style.display = 'block';
+            loadingBar.style.width = `${progress}%`;
         }
 
         async function decompressModel(compressedData) {
-            try {
-                log('Starting model decompression...');
-                const decompressed = pako.inflate(compressedData);
-                log('Model decompression successful');
-                return decompressed.buffer;
-            } catch (error) {
-                throw new Error('Failed to decompress model: ' + error.message);
-            }
+            const decompressed = pako.inflate(compressedData);
+            return decompressed.buffer;
         }
 
         async function loadModel() {
             try {
-                log('Starting model and tokenizer loading...');
-                document.getElementById('status').textContent = 'Loading and decompressing model...';
+                document.querySelector('.loading-bar').style.display = 'block';
                 
-                // Load all chunks
                 const chunks = [];
                 let chunkIndex = 0;
-                while (chunkIndex < 11) {
+                const totalChunks = 11;
+                
+                while (chunkIndex < totalChunks) {
                     try {
+                        updateLoadingProgress((chunkIndex / totalChunks) * 80);
                         const response = await fetch(`onnx_model/model.onnx.gz.part${chunkIndex}`);
                         if (!response.ok) break;
                         const chunk = await response.arrayBuffer();
@@ -133,7 +233,8 @@
                     throw new Error('No model chunks found');
                 }
                 
-                // Combine chunks
+                updateLoadingProgress(85);
+                
                 const totalLength = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
                 const combinedBuffer = new Uint8Array(totalLength);
                 let offset = 0;
@@ -142,10 +243,12 @@
                     offset += chunk.length;
                 }
                 
-                // Decompress combined data
+                updateLoadingProgress(90);
+                
                 const modelData = await decompressModel(combinedBuffer);
                 
-                // Load model and other resources
+                updateLoadingProgress(95);
+                
                 const [vocabResponse, mergesResponse] = await Promise.all([
                     fetch('onnx_model/vocab.json'),
                     fetch('onnx_model/merges.txt')
@@ -157,40 +260,37 @@
                 merges = mergesText.split('\n')
                     .filter(line => line.trim() && !line.startsWith('#'));
         
-                log('Model loaded successfully');
-                log('Vocab size:', Object.keys(vocab).length);
-                log('Merges count:', merges.length);
-        
-                document.getElementById('status').textContent = 'Ready!';
-                document.getElementById('input').disabled = false;
-                document.getElementById('calculate').disabled = false;
+                updateLoadingProgress(100);
+                
+                setTimeout(() => {
+                    document.querySelector('.loading-bar').style.display = 'none';
+                    document.getElementById('input').disabled = false;
+                    document.getElementById('calculate').disabled = false;
+                }, 500);
+                
             } catch (error) {
-                log('Error loading model:', error.message);
-                console.error('Loading error:', error);
-                document.getElementById('status').textContent = 'Error loading model: ' + error.message;
+                document.getElementById('results').innerHTML = `
+                    <div style="color: var(--danger)">
+                        Error loading model: ${error.message}
+                    </div>
+                `;
             }
         }
 
         function encodeText(text) {
-            log('Starting encoding for text:', text);
             let tokens = [];
-            
-            // Split into words, preserving whitespace
             let words = text.split(/(\s+)/);
             
             for (let word of words) {
                 if (!word) continue;
                 
-                // Handle whitespace tokens
                 if (/^\s+$/.test(word)) {
                     tokens.push(vocab['Ġ'] || vocab[' ']);
                     continue;
                 }
                 
-                // Start with characters
                 let token = Array.from(word).join(' ');
                 
-                // Apply merges
                 for (let merge of merges) {
                     const [first, second] = merge.split(' ');
                     if (!first || !second) continue;
@@ -200,7 +300,6 @@
                     token = token.replace(regex, first + second);
                 }
                 
-                // Convert to token IDs
                 const wordTokens = token.split(' ').filter(t => t);
                 
                 for (let t of wordTokens) {
@@ -212,7 +311,6 @@
                 }
             }
             
-            log('Encoded token IDs:', tokens);
             return tokens;
         }
 
@@ -228,14 +326,11 @@
             return -Math.log(probs[targetId] || 1e-10);
         }
 
-        function getTokenString(tokenId) {
-            return Object.entries(vocab).find(([_, id]) => id === tokenId)?.[0] || '<unknown>';
-        }
-
         async function calculateSelfPrediction() {
             const input = document.getElementById('input').value.trim();
             const resultsDiv = document.getElementById('results');
             const calculateBtn = document.getElementById('calculate');
+            const spinner = document.getElementById('spinner');
         
             if (!input) {
                 resultsDiv.textContent = 'Please enter some text to analyze';
@@ -244,16 +339,15 @@
         
             try {
                 calculateBtn.disabled = true;
-                resultsDiv.textContent = 'Calculating...';
+                resultsDiv.style.display = 'none';
+                spinner.style.display = 'block';
         
-                // Encode sequence
                 const tokens = encodeText(input);
                 if (tokens.length < 1) {
                     resultsDiv.textContent = 'Text too short to analyze';
                     return;
                 }
         
-                // Create input tensors
                 const inputTensor = new ort.Tensor(
                     'int64',
                     new BigInt64Array(tokens.map(t => BigInt(t))),
@@ -266,24 +360,18 @@
                     [1, tokens.length]
                 );
         
-                // Run inference
-                log('Running inference for sequence length:', tokens.length);
                 const results = await session.run({
                     'input_ids': inputTensor,
                     'attention_mask': attentionMask
                 });
         
-                // Get logits sequence
                 const logits = results.logits.data;
                 const vocabSize = Object.keys(vocab).length;
                 const seqLength = tokens.length;
         
-                // Shift logits and labels
                 const shiftedLogits = Array.from(logits).slice(0, (seqLength - 1) * vocabSize);
                 const shiftedLabels = tokens.slice(1);
-                const shiftedAttentionMask = Array.from(attentionMask.data).slice(0, seqLength - 1);
         
-                // Calculate cross-entropy loss for each position
                 let losses = [];
                 for (let pos = 0; pos < shiftedLabels.length; pos++) {
                     const posLogits = shiftedLogits.slice(pos * vocabSize, (pos + 1) * vocabSize);
@@ -292,37 +380,33 @@
                     losses.push(loss);
                 }
         
-                // Calculate perplexity
                 const totalLoss = losses.reduce((a, b) => a + b, 0);
                 const meanLoss = totalLoss / losses.length;
-                const perplexity = Math.exp(meanLoss);
+                const telescopeScore = Math.exp(meanLoss);
         
-                log('Losses:', losses);
-                log('Self-prediction perplexity:', perplexity);
-        
-                // Display results
                 resultsDiv.innerHTML = `
-                    <strong>Results:</strong><br>
-                    Number of tokens: ${seqLength}<br>
-                    Self-prediction perplexity: ${perplexity.toFixed(4)}<br>
-                    Average loss: ${meanLoss.toFixed(4)}
+                    <div style="font-size: 1.1em;">
+                        <strong>Results:</strong><br>
+                        Telescope Score: ${telescopeScore.toFixed(4)}<br>
+                        Loss: ${meanLoss.toFixed(4)}
+                    </div>
                 `;
-        
+
             } catch (error) {
-                log('Calculation error:', error.message);
-                resultsDiv.textContent = 'Error: ' + error.message;
+                resultsDiv.innerHTML = `
+                    <div style="color: var(--danger)">
+                        Error during analysis: ${error.message}
+                    </div>
+                `;
             } finally {
                 calculateBtn.disabled = false;
+                spinner.style.display = 'none';
+                resultsDiv.style.display = 'block';
             }
         }
 
         document.getElementById('calculate').addEventListener('click', calculateSelfPrediction);
-        document.getElementById('clearDebug').addEventListener('click', () => {
-            debugLog.length = 0;
-            document.getElementById('debugInfo').textContent = '';
-        });
 
-        // Start loading when page loads
         loadModel();
     </script>
 </body>
