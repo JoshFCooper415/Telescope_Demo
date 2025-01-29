@@ -348,16 +348,23 @@
                     return;
                 }
         
+                // Maximum sequence length for transformer models
+                const MAX_LENGTH = 1024;
+                
+                // Take first MAX_LENGTH tokens
+                const truncatedTokens = tokens.slice(0, MAX_LENGTH);
+                console.log(`Processing ${truncatedTokens.length} tokens out of ${tokens.length} total`);
+        
                 const inputTensor = new ort.Tensor(
                     'int64',
-                    new BigInt64Array(tokens.map(t => BigInt(t))),
-                    [1, tokens.length]
+                    new BigInt64Array(truncatedTokens.map(t => BigInt(t))),
+                    [1, truncatedTokens.length]
                 );
         
                 const attentionMask = new ort.Tensor(
                     'int64',
-                    new BigInt64Array(tokens.length).fill(1n),
-                    [1, tokens.length]
+                    new BigInt64Array(truncatedTokens.length).fill(1n),
+                    [1, truncatedTokens.length]
                 );
         
                 const results = await session.run({
@@ -367,10 +374,14 @@
         
                 const logits = results.logits.data;
                 const vocabSize = Object.keys(vocab).length;
-                const seqLength = tokens.length;
+                const seqLength = truncatedTokens.length;
         
-                const shiftedLogits = Array.from(logits).slice(0, (seqLength - 1) * vocabSize);
-                const shiftedLabels = tokens.slice(1);
+                // Convert Float32Array to regular array for processing
+                const logitsArray = Array.from(logits);
+                
+                // Get logits for all positions except the last one
+                const shiftedLogits = logitsArray.slice(0, (seqLength - 1) * vocabSize);
+                const shiftedLabels = truncatedTokens.slice(1);
         
                 let losses = [];
                 for (let pos = 0; pos < shiftedLabels.length; pos++) {
@@ -388,11 +399,15 @@
                     <div style="font-size: 1.1em;">
                         <strong>Results:</strong><br>
                         Telescope Score: ${telescopeScore.toFixed(4)}<br>
-                        Loss: ${meanLoss.toFixed(4)}
+                        Loss: ${meanLoss.toFixed(4)}<br>
+                        ${tokens.length > MAX_LENGTH ? 
+                            `<br><em>Note: Analysis performed on first ${MAX_LENGTH} tokens (${Math.round(MAX_LENGTH/tokens.length * 100)}% of text)</em>` 
+                            : ''}
                     </div>
                 `;
-
+        
             } catch (error) {
+                console.error('Error details:', error);
                 resultsDiv.innerHTML = `
                     <div style="color: var(--danger)">
                         Error during analysis: ${error.message}
